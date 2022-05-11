@@ -43,7 +43,7 @@ namespace ExcelToExcel.Tests
         [InlineData("")]
         public void InputFile_IsEmpty_Message_ShouldBe_Empty(string fn)
         {
-            /// TODO : Q01a. Compléter le test
+            /// XTODO : Q01a. Compléter le test
             /// /// Arrange
             var filename = Path.Combine(excelFilesPath, fn);
             vm.InputFilename = filename;
@@ -51,19 +51,59 @@ namespace ExcelToExcel.Tests
             /// Act
             vm.LoadContentCommand.CanExecute("");
             var actual = vm.Message;
-
-
-            /// TODO : Q01b. Ne pas briser la batterie de tests après ce tests
+      
+          
+            /// XTODO : Q01b. Ne pas briser la batterie de tests après ce tests
             /// 
             Assert.Equal(expected, actual);
         }
 
         // TODO : Q02 : Créer le test CanExecuteSaveCommand_FileNotLoaded_ShouldReturn_False
+        [Theory]
+        [InlineData("b")]
+        public void CanExecuteSaveCommand_FileNotLoaded_ShouldReturn_False(string fn)
+        {
+            /// Arrange
+            var filename = Path.Combine(excelFilesPath,fn);
+            vm.InputFilename = filename;
 
+            /// Act
+            var actual = vm.SaveCommand.CanExecute("");
+
+            /// Assert
+            Assert.False(actual);
+        }
         // TODO : Q03 : Créer le test CanExecuteSaveCommand_OutputFileInvalid_ShouldReturn_False
+        [Theory]
+        [MemberData(nameof(NonExistentFilesTestData))]
+        public void CanExecuteSaveCommand_OutputFileInvalid_ShouldReturn_False(string fn)
+            
+        {
+            /// Arrange
+            var filename = Path.Combine(excelFilesPath,fn);
+            vm.OutputFilename = filename;
 
+            /// Act
+            var actual = vm.SaveCommand.CanExecute("");
+
+            /// Assert
+            Assert.False(actual);
+        }
         // TODO : Q04 : Créer le test CanExecuteSaveCommand_OutputFileValid_ShouldReturn_True(string filename)
+        [Theory]
+        [MemberData(nameof(ExistingFilesTestData))]
+        public void CanExecuteSaveCommand_OutputFileValid_ShouldReturn_True(string fn)
+        {
+            /// Arrange
+            var filename = Path.Combine(excelFilesPath, fn);
+            vm.OutputFilename = filename;
 
+            /// Act
+            var actual = vm.SaveCommand.CanExecute("");
+
+            /// Assert
+            Assert.True(actual);
+        }
 
         #endregion
 
