@@ -120,9 +120,43 @@ namespace ExcelToExcel.Tests
         }
 
         // TODO : Q06 : Créez le test « SaveJson_BadFileName_Should_Fail »
+        [Theory]
+        [MemberData(nameof(BadExcelFilesTestData))]
+        public void SaveJson_BadFileName_Should_Fail(string fn)
+        {
+            /// Arrange
+            /// 
+            var filename = Path.Combine(excelFilesPath, fn);
+            var especeXL = new EspeceXL(filename);
+            especeXL.LoadFile();
 
+            /// Act
+            /// 
+            Action act = () => especeXL.SaveJson(fn);
+
+            /// Assert
+            /// 
+            Assert.Throws<ArgumentException>(act);
+        }
         // TODO : Q07 : Créez le test « SaveXls_BadFileName_Should_Fail »
+        [Theory]
+        [MemberData(nameof(BadExcelFilesTestData))]
+        public void SaveXls_BadFileName_Should_Fail(string fn)
+        {
+            /// Arrange
+            /// 
+            var filename = Path.Combine(excelFilesPath, fn);
+            var especeXL = new EspeceXL(filename);
+            especeXL.LoadFile();
 
+            /// Act
+            /// 
+            Action act = () => especeXL.SaveCSV(fn);
+
+            /// Assert
+            /// 
+            Assert.Throws<ArgumentException>(act);
+        }
         public static IEnumerable<object[]> BadExcelFilesTestData = new List<object[]>
         {
             new object[] {"Contenu_nom de peuplement.xlsx"},
