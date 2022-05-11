@@ -45,7 +45,7 @@ namespace ExcelToExcel.Tests
         {
             /// XTODO : Q01a. Compléter le test
             /// /// Arrange
-            var filename = Path.Combine(excelFilesPath, fn);
+            var filename = Path.Combine(excelFilesPath,fn);
             vm.InputFilename = filename;
             var expected = "";
             /// Act
@@ -59,12 +59,11 @@ namespace ExcelToExcel.Tests
         }
 
         // TODO : Q02 : Créer le test CanExecuteSaveCommand_FileNotLoaded_ShouldReturn_False
-        [Theory]
-        [InlineData("b")]
-        public void CanExecuteSaveCommand_FileNotLoaded_ShouldReturn_False(string fn)
+        [Fact]
+        public void CanExecuteSaveCommand_FileNotLoaded_ShouldReturn_False()
         {
             /// Arrange
-            var filename = Path.Combine(excelFilesPath,fn);
+            var filename = Path.Combine(excelFilesPath);
             vm.InputFilename = filename;
 
             /// Act
